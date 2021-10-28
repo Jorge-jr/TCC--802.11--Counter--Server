@@ -39,7 +39,8 @@ int socket_start_udp()
     /* now loop, receiving data and printing what we received */
     for (;;) {
             //printf("waiting on port %d\n", PORT);
-            recvlen = recvfrom(fd, buf, BUFSIZE, 0, (struct sockaddr *)&remaddr, &addrlen);
+            //recvlen = recvfrom(fd, buf, BUFSIZE, 0, (struct sockaddr *)&remaddr, &addrlen);
+            recvlen = recv(fd, buf, BUFSIZE, 0);
             //printf("received %d bytes\n", recvlen);
             if (recvlen > 0) {
                     buf[recvlen] = 0;

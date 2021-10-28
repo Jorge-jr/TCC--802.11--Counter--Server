@@ -7,12 +7,14 @@
 #include "server_socket.h"
 #include "device_handler.h"
 #include "user_interface.h"
+#include <pthread.h>
+
 
 
 Device* device_list = NULL;
-int total = 0, count;
-int sleeping_time = 1;
-int presence_timer = 12;  // excludes devices from list after 2 minutes without detection
+int total = 0, count, remove_count;  //refatorar count -> line_count
+int sleeping_time = 1;  //sets how long(seconds) the scanner will wait until the next iteration
+int presence_timer = 12;  // sets how long(seconds) devices will be kept on device list
 char blacklist[] = {"00:00:00:00:00:00"};
 char buf[256];
 
@@ -24,7 +26,7 @@ void receive_device(char* address)  //receive device's address from socket
     Device* new_device;
     Device* devices;
     devices = device_list;
-    if (devices ==  NULL){
+    if (devices == NULL){
         new_device = (Device*) malloc (sizeof(Device));
         strncpy(new_device->address, address, sizeof(char) * 17);
         new_device->next = NULL;
@@ -34,7 +36,7 @@ void receive_device(char* address)  //receive device's address from socket
         total++;
     }else{
         while (devices != NULL){
-            if (strcmp(devices->address, address)== 0){  //strcmp()
+            if (strncmp(devices->address, address, 17) == 0){  //strcmp()
                 devices->count++;
                 devices->last_detected = time(NULL);
                 devices = NULL;
@@ -54,29 +56,31 @@ void receive_device(char* address)  //receive device's address from socket
     }
 }
 
+
 void device_scanner()
 {
-    ui_print(3, 1, 2, "Starting device scanner ...");
+    ui_print(3, 1, 2, "Sniffing ...");
     Device* dev;
 
     while (true) {
 
-        sprintf(buf, "%d", total);
+        sprintf(buf, "%d            ", total);
         ui_print(1, 1, 16, buf);
         dev = device_list;
         count = 0;
         while(dev != NULL){
 
-            if (difftime(time(NULL), dev->last_detected) > presence_timer){
+            if (difftime(time(NULL), dev->last_detected) >= presence_timer){
                 remove_device(dev->address);
             }else{
-                sprintf(buf, "%d \t %s \t %s \t %d \t %f", count+1, dev->address, "test", dev->count, difftime(time(NULL), dev->last_detected));
+                sprintf(buf, "%d \t %s \t %.0f seconds ago \t %d", count+1, dev->address, difftime(time(NULL), dev->last_detected), dev->count);
                 count ++;
                 ui_print(2, count+2, 2, buf);
             }
             dev = dev->next;
         }
         sleep (sleeping_time);
+        //ui_clear();
     }
 }
 
@@ -85,14 +89,10 @@ void remove_device(char* address)
 {
     Device* dev = device_list;
     Device* previous = NULL;
-
+    int remove_line_count = 1;
     while (dev != NULL){
 
-        if (strcmp(dev->address, address)== 0){
-            if (dev->next == NULL){
-                //if the device is the last one it's needed to remove its entry from ui
-                ui_print(2, total+2, 1, "                                                                            ");
-            }
+        if (strncmp(dev->address, address, 17) == 0){
             if (previous == NULL){
                 device_list = device_list->next;
             }else{
@@ -105,6 +105,9 @@ void remove_device(char* address)
             previous = dev;
             dev = dev->next;
         }
+        //remove device's entry from ui
+        ui_print(2, remove_line_count+2, 1, "                                                                            ");
+        remove_line_count++;
     }
 }
 

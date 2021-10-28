@@ -33,7 +33,11 @@
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
+			<Add library="ncurses" />
 		</Linker>
+		<Unit filename="device_handler.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="device_handler.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
@@ -42,6 +46,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="server_socket.h" />
+		<Unit filename="user_interface.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="user_interface.h" />
 		<Extensions />
 	</Project>

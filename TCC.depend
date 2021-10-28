@@ -10,7 +10,7 @@
 
 1635123337 /home/JSRJ/Estudo/TCC/C/TCC/interface.h
 
-1635229987 source:/home/JSRJ/Estudo/TCC/C/TCC/server_socket.c
+1635342555 source:/home/JSRJ/Estudo/TCC/C/TCC/server_socket.c
 	<sys/socket.h>
 	<string.h>
 	<stdio.h>
@@ -20,7 +20,7 @@
 
 1635232185 /home/JSRJ/Estudo/TCC/C/TCC/device_handler.h
 
-1635235879 source:/home/JSRJ/Estudo/TCC/C/TCC/device_handler.c
+1635355696 source:/home/JSRJ/Estudo/TCC/C/TCC/device_handler.c
 	<stdio.h>
 	<stdbool.h>
 	<string.h>
@@ -30,8 +30,9 @@
 	"server_socket.h"
 	"device_handler.h"
 	"user_interface.h"
+	<pthread.h>
 
-1635231732 source:/home/JSRJ/Estudo/TCC/C/TCC/user_interface.c
+1635352125 source:/home/JSRJ/Estudo/TCC/C/TCC/user_interface.c
 	"user_interface.h"
 	<stdio.h>
 	<stdbool.h>
@@ -41,5 +42,5 @@
 	<time.h>
 	"device_handler.h"
 
-1635230204 /home/JSRJ/Estudo/TCC/C/TCC/user_interface.h
+1635352011 /home/JSRJ/Estudo/TCC/C/TCC/user_interface.h
 
