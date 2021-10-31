@@ -18,7 +18,7 @@ int presence_timer = 12;  // sets how long(seconds) devices will be kept on devi
 char blacklist[] = {"00:00:00:00:00:00"};
 char buf[256];
 
-void remove_device(char* address);
+Device* remove_device(char* address);
 
 
 void receive_device(char* address)  //receive device's address from socket
@@ -71,25 +71,24 @@ void device_scanner()
         while(dev != NULL){
 
             if (difftime(time(NULL), dev->last_detected) >= presence_timer){
-                remove_device(dev->address);
+                dev = remove_device(dev->address);  //the remove device function will return de next node in case of removal or the same cause it fails
             }else{
                 sprintf(buf, "%d \t %s \t %.0f seconds ago \t %d", count+1, dev->address, difftime(time(NULL), dev->last_detected), dev->count);
                 count ++;
                 ui_print(2, count+2, 2, buf);
+                dev = dev->next;
             }
-            dev = dev->next;
         }
-        sleep (sleeping_time);
-        //ui_clear();
+        //sleep (sleeping_time);
     }
 }
 
 //void insert_device(char* address);
-void remove_device(char* address)
+Device* remove_device(char* address)
 {
     Device* dev = device_list;
     Device* previous = NULL;
-    int remove_line_count = 1;
+    //int remove_line_count = 1;
     while (dev != NULL){
 
         if (strncmp(dev->address, address, 17) == 0){
@@ -100,14 +99,25 @@ void remove_device(char* address)
             }
             free(dev);
             dev = NULL;
+            for(int i=3;i<total+3;i++){
+                ui_print(2, i, 1, "                                                                            ");
+            }
             total--;
+            if(previous==NULL) return NULL;
+            return previous->next;
         }else{
             previous = dev;
             dev = dev->next;
         }
         //remove device's entry from ui
-        ui_print(2, remove_line_count+2, 1, "                                                                            ");
-        remove_line_count++;
+        //ui_print(2, remove_line_count+2, 1, "                                                                            ");
+        //remove_line_count++;
+    }
+    if (previous==NULL){
+        if(device_list==NULL) return NULL;
+        return device_list->next;
+    }else{
+        return previous->next;
     }
 }
 
