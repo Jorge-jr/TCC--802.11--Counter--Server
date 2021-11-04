@@ -2,17 +2,28 @@
 #define DEVICE_HANDLER_H_INCLUDED
 
 
+/*
+struct detection{
+    time_t detection_time;
+    struct detection* next;
+    struct detection* previous;
+    //int detected_by;
+}typedef Detection;
+*/
+
 struct device{
     int count;
-    struct device *next;
+    struct device* next;
     char address[17];
     time_t first_detected;
     time_t last_detected;
-    //double difftime(time_t time1, time_t time2)
+    int blacklist;
+    //int is_AP;
+    //Detection* detections;
 }typedef Device;
 
 
-void receive_device(char* address);  //receive device's address from socket
+int receive_device(char* address);  //receive device's address from socket
 
 //void insert_device(char* address);
 //void remove_device(char* address);

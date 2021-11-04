@@ -50,8 +50,8 @@ void ui_start(){
     box(center, 0, 0);
     box(stdscr, 0, 0);
     curs_set (0);  //Hide cursor
-    wattrset(top, COLOR_PAIR(1));
-    wbkgd(bottom, COLOR_PAIR(5));
+    //wattrset(top, COLOR_PAIR(1));
+    //wbkgd(bottom, COLOR_PAIR(5));
     mvwprintw(top, 1, 1, "Found devices: %d", 0);
     mvwprintw(center, 2, 4, "Nº \t Address \t Last detected \t     Count");
     refresh();

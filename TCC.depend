@@ -18,9 +18,9 @@
 	<netinet/in.h>
 	"device_handler.h"
 
-1635232185 /home/JSRJ/Estudo/TCC/C/TCC/device_handler.h
+1635701304 /home/JSRJ/Estudo/TCC/C/TCC/device_handler.h
 
-1635672170 source:/home/JSRJ/Estudo/TCC/C/TCC/device_handler.c
+1635702143 source:/home/JSRJ/Estudo/TCC/C/TCC/device_handler.c
 	<stdio.h>
 	<stdbool.h>
 	<string.h>
@@ -32,7 +32,7 @@
 	"user_interface.h"
 	<pthread.h>
 
-1635352125 source:/home/JSRJ/Estudo/TCC/C/TCC/user_interface.c
+1635684707 source:/home/JSRJ/Estudo/TCC/C/TCC/user_interface.c
 	"user_interface.h"
 	<stdio.h>
 	<stdbool.h>
