@@ -17,6 +17,7 @@ int sleeping_time = 1;  //sets how long(seconds) the scanner will wait until the
 int presence_timer = 12;  // sets how long(seconds) devices will be kept on device list
 char blacklist[][17] = {"00:00:00:00:00:00", "b8:27:eb:81:3d:ed", "c0:38:96:a1:bd:7f", "68:02:b8:52:bd:b3", "d0:03:df:74:11:b8"};
 char buf[256];
+FILE *fp;
 
 Device* remove_device(char* address);
 
@@ -26,7 +27,11 @@ int receive_device(char* address)  //receive device's address from socket
     Device* new_device;
     Device* devices;
     devices = device_list;
-    if (devices == NULL){
+    fp = fopen("detections", "a");
+    fprintf(fp, "%d %s", time(NULL), address);
+    fclose(fp);
+
+    if (devices == NULL){  //first detected device
         for(int i=0;i<=sizeof(blacklist)-1;i++){
         if(strncmp(address, blacklist[i], 17) == 0){
                 return -1;
@@ -49,7 +54,7 @@ int receive_device(char* address)  //receive device's address from socket
                 return 1;
             }else if (devices->next != NULL){
                 devices = devices->next;
-            }else{
+            }else{  //got to the end of the list and the device wasn't there
                 for(int i=0;i<=sizeof(blacklist)-1;i++){
                     if(strncmp(address, blacklist[i], 17) == 0){
                         return -1;

@@ -1,12 +1,12 @@
 # depslib dependency file v1.0
-1635230790 source:/home/JSRJ/Estudo/TCC/C/TCC/main.c
+1637788722 source:/home/JSRJ/Estudo/TCC/C/TCC/main.c
 	<stdio.h>
 	<pthread.h>
 	"server_socket.h"
 	"user_interface.h"
 	"device_handler.h"
 
-1635133069 /home/JSRJ/Estudo/TCC/C/TCC/server_socket.h
+1637788493 /home/JSRJ/Estudo/TCC/C/TCC/server_socket.h
 
 1635123337 /home/JSRJ/Estudo/TCC/C/TCC/interface.h
 
@@ -18,9 +18,9 @@
 	<netinet/in.h>
 	"device_handler.h"
 
-1635701304 /home/JSRJ/Estudo/TCC/C/TCC/device_handler.h
+1637800723 /home/JSRJ/Estudo/TCC/C/TCC/device_handler.h
 
-1635702143 source:/home/JSRJ/Estudo/TCC/C/TCC/device_handler.c
+1637801606 source:/home/JSRJ/Estudo/TCC/C/TCC/device_handler.c
 	<stdio.h>
 	<stdbool.h>
 	<string.h>
@@ -32,7 +32,7 @@
 	"user_interface.h"
 	<pthread.h>
 
-1635684707 source:/home/JSRJ/Estudo/TCC/C/TCC/user_interface.c
+1637800723 source:/home/JSRJ/Estudo/TCC/C/TCC/user_interface.c
 	"user_interface.h"
 	<stdio.h>
 	<stdbool.h>
